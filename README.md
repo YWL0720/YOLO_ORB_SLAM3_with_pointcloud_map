@@ -1,10 +1,11 @@
-# YOLO_ORB_SLAM3
+# YOLO_ORB_SLAM3_with_pointcloud_map
 Combine YOLOv5 with ORB-SLAM3
 - Object Detect
 - Dynamic SLAM
+- PointCloudMapping
 
-~~![Fig1](/home/yuwenlu/MyCode/Fig1.png)~~
-![Fig2](/home/yuwenlu/MyCode/Fig2.png)
+
+![Fig](https://raw.githubusercontent.com/YWL0720/YOLO_ORB_SLAM3_with_pointcloud_map/master/Fig.png)
 ## Geting Started
 ### 1. Install libtorch
 ```bash
@@ -14,7 +15,7 @@ mv libtorch/ PATH/YOLO_ORB_SLAM3/Thirdparty/
 ```
 ### 2. Build
 ```bash
-cd YOLO_ORB_SLAM3
+cd YOLO_ORB_SLAM3_with_pointcloud_map
 chmod +x build.sh
 ./build.sh
 ```
@@ -22,13 +23,13 @@ chmod +x build.sh
 Only the rgbd_tum target will be build.
 
 ### 3. Build ROS Examples
-Add the path including *Examples/ROS/YOLO_ORB_SLAM3* to the ROS_PACKAGE_PATH environment variable. Open .bashrc file:
+Add the path including *Examples/ROS/YOLO_ORB_SLAM3_with_pointcloud_map* to the ROS_PACKAGE_PATH environment variable. Open .bashrc file:
 ```bash
 gedit ~/.bashrc
 ```
 and add at the end the following line. Replace PATH by the folder where you cloned YOLO_ORB_SLAM3:
 ```bash
-export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:PATH/YOLO_ORB_SLAM3/Examples/ROS
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:PATH/YOLO_ORB_SLAM3_with_pointcloud_map/Examples/ROS
 ```
 Then build
 ```bash
@@ -42,7 +43,22 @@ The frequency of camera topic must be lower than 15 Hz.
 
 You can run this command to change the frequency of topic which published by the camera driver. 
 ```bash
+roslaunch YOLO_ORB_SLAM3_with_pointcloud_map camera_topic_remap.launch
+```
+## Try
+We tested on Ubuntu20.04 + ROS noetic + OpenCV4.2 + Pangolin0.5 + Eigen3.3.9 + PCL1.12.1
+
+### TUM Dataset
+
+```bash
+./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUMX.yaml PATH_TO_SEQUENCE_FOLDER ASSOCIATIONS_FILE
+```
+
+### ROS
+
+```bash
 roslaunch YOLO_ORB_SLAM3 camera_topic_remap.launch
+rosrun YOLO_ORB_SLAM3_with_pointcloud_map RGBD PATH_TO_VOCABULARY PATH_TO_SETTINGS_FILE
 ```
 
 ---
