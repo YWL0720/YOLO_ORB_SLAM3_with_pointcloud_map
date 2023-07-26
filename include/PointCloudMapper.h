@@ -9,11 +9,12 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <Eigen/Geometry>
-#include <boost//format.hpp>
+#include <boost/format.hpp>
 #include <pcl/point_types.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/visualization/cloud_viewer.h>
+#include <pcl/filters/voxel_grid.h>
 #include "KeyFrame.h"
 #include <pcl/common/transforms.h>
 using namespace ORB_SLAM3;
@@ -29,17 +30,18 @@ public:
 
     void InsertKeyFrame(KeyFrame* kf, cv::Mat& imRGB, cv::Mat& imDepth);
 
-     PointCloud::Ptr GeneratePointCloud(KeyFrame* kf, cv::Mat& imRGB, cv::Mat& imDepth);
+    PointCloud::Ptr GeneratePointCloud(KeyFrame* kf, cv::Mat& imRGB, cv::Mat& imDepth);
 
-     void run();
+    void run();
 
-     queue<KeyFrame*> mqKeyFrame;
-     queue<cv::Mat> mqRGB;
-     queue<cv::Mat> mqDepth;
+    queue<KeyFrame*> mqKeyFrame;
+    queue<cv::Mat> mqRGB;
+    queue<cv::Mat> mqDepth;
 
-     std::mutex mmLoadKFMutex;
-     PointCloud::Ptr mpGlobalMap;
-     int mKeyFrameSize;
+    pcl::VoxelGrid<PointT>::Ptr mpVoxel;
+    std::mutex mmLoadKFMutex;
+    PointCloud::Ptr mpGlobalMap;
+    int mKeyFrameSize;
 
 
 };

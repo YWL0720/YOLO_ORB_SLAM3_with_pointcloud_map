@@ -8,7 +8,12 @@ typedef pcl::PointCloud<PointT> PointCloud;
 
 PointCloudMapper::PointCloudMapper()
 {
-    mpGlobalMap = std::shared_ptr<PointCloud>(new PointCloud);
+    mpGlobalMap = PointCloud::Ptr (boost::make_shared<PointCloud>());
+    cout << "voxel set start" << endl;
+    mpVoxel = pcl::VoxelGrid<PointT>::Ptr (boost::make_shared<pcl::VoxelGrid<PointT>>());
+    mpVoxel->setLeafSize(0.01, 0.01, 0.01);
+    cout << "voxel set finish" << endl;
+
 }
 
 void PointCloudMapper::InsertKeyFrame(KeyFrame *kf, cv::Mat &imRGB, cv::Mat &imDepth)
@@ -73,10 +78,15 @@ void PointCloudMapper::run()
             mqKeyFrame.pop();
             mqRGB.pop();
             mqDepth.pop();
-            cout << "==============Insert No. " << ID << "KeyFrame ================" << endl;
+//            cout << "==============Insert No. " << ID << "KeyFrame ================" << endl;
             ID++;
             *mpGlobalMap += *pointCloud_new;
+            PointCloud::Ptr temp(boost::make_shared<PointCloud>());
+            pcl::copyPointCloud(*mpGlobalMap, *temp);
+            mpVoxel->setInputCloud(temp);
+            mpVoxel->filter(*mpGlobalMap);
         }
+
         Viewer.showCloud(mpGlobalMap);
     }
 }
