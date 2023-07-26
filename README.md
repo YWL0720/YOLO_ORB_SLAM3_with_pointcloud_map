@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <img src="Fig2.png" height="350"/>
-  <img src="Fig3.png" height="350"/>
+  <img src="Fig2.png" height="300"/>
+  <img src="Fig3.png" height="300"/>
   <br>
   <em>Fig 2 : Static Scene(left) vs Dynamic Scene(right)</em>
 </p>
