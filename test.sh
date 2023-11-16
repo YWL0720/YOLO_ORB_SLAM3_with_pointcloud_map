@@ -1,2 +1,2 @@
-./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUM3.yaml ~/dataset/rgbd_dataset_freiburg3_walking_halfsphere ~/dataset/rgbd_dataset_freiburg3_walking_halfsphere/associate.txt
+./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUM2.yaml /media/ywl/zhitai/SLAM_Dataset/TUM/DynamicObjects/rgbd_dataset_freiburg2_desk_with_person /media/ywl/zhitai/SLAM_Dataset/TUM/DynamicObjects/rgbd_dataset_freiburg2_desk_with_person/associate.txt
 

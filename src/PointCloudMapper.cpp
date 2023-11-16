@@ -8,7 +8,7 @@ typedef pcl::PointCloud<PointT> PointCloud;
 
 PointCloudMapper::PointCloudMapper()
 {
-    mpGlobalMap = PointCloud::Ptr (boost::make_shared<PointCloud>());
+    mpGlobalMap = boost::make_shared<PointCloud>();
     cout << "voxel set start" << endl;
     mpVoxel = pcl::VoxelGrid<PointT>::Ptr (boost::make_shared<pcl::VoxelGrid<PointT>>());
     mpVoxel->setLeafSize(0.01, 0.01, 0.01);
