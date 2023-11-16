@@ -8,9 +8,9 @@ typedef pcl::PointCloud<PointT> PointCloud;
 
 PointCloudMapper::PointCloudMapper()
 {
-    mpGlobalMap = boost::make_shared<PointCloud>();
+    mpGlobalMap = pcl::make_shared<PointCloud>();
     cout << "voxel set start" << endl;
-    mpVoxel = pcl::VoxelGrid<PointT>::Ptr (boost::make_shared<pcl::VoxelGrid<PointT>>());
+    mpVoxel = pcl::make_shared<pcl::VoxelGrid<PointT>>();
     mpVoxel->setLeafSize(0.01, 0.01, 0.01);
     cout << "voxel set finish" << endl;
 
@@ -81,7 +81,7 @@ void PointCloudMapper::run()
 //            cout << "==============Insert No. " << ID << "KeyFrame ================" << endl;
             ID++;
             *mpGlobalMap += *pointCloud_new;
-            PointCloud::Ptr temp(boost::make_shared<PointCloud>());
+            PointCloud::Ptr temp(new PointCloud);
             pcl::copyPointCloud(*mpGlobalMap, *temp);
             mpVoxel->setInputCloud(temp);
             mpVoxel->filter(*mpGlobalMap);
